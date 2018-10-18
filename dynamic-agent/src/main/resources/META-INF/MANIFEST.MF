@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Premain-Class: io.github.strivestruggleyou.AgentApplication
+Agent-Class: io.github.strivestruggleyou.AgentApplication
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
