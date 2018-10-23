@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Premain-Class: io.github.strivestruggleyou.AgentApplication
+Archiver-Version: Plexus Archiver
+Agent-Class: io.github.strivestruggleyou.AgentApplication
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
+Created-By: 25.101-b13 (Oracle Corporation)
+

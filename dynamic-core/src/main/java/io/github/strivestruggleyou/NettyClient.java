@@ -2,6 +2,8 @@ package io.github.strivestruggleyou;
 
 import io.github.strivestruggleyou.handler.ClientHandler;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -10,13 +12,14 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import java.net.InetSocketAddress;
 
 public class NettyClient {
 
-    private Channel channel;
+    public Channel channel;
 
     EventLoopGroup worker;
 
@@ -39,6 +42,11 @@ public class NettyClient {
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
                     //获取管道
                     ChannelPipeline pipeline = socketChannel.pipeline();
+
+                    ByteBuf delimiter = Unpooled.copiedBuffer("\t".getBytes());
+                    pipeline.addLast("framer", new DelimiterBasedFrameDecoder(100000,delimiter));
+
+
                     //字符串解码器
                     pipeline.addLast(new StringDecoder());
                     //字符串编码器
@@ -81,12 +89,8 @@ public class NettyClient {
 
     public static void main(String args[]) {
         NettyClient nettyClient = new NettyClient();
-
         nettyClient.connect();
-
         nettyClient.send("line com.qipeng.blackcat.web.TrackRecognitionController testShow 24 logger.info(\"test\");");
-
-
     }
 
 }

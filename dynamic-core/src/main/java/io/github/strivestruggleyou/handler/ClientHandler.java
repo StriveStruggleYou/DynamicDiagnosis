@@ -1,5 +1,6 @@
 package io.github.strivestruggleyou.handler;
 
+import io.github.strivestruggleyou.global.GobalResponse;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -8,7 +9,10 @@ public class ClientHandler extends SimpleChannelInboundHandler<String> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
 //        ctx.channel().writeAndFlush(msg);
-        System.out.println("server response ： " + msg);
+//        System.out.println("server response ：\r\n " + msg);
+
+        GobalResponse.gobalResponse=msg;
+
     }
 
     //与服务器建立连接
